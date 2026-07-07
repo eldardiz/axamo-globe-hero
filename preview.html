@@ -3,23 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Axamo Globe Hero — embed local test</title>
+    <title>Axamo Globe Hero — embed local preview</title>
     <meta name="robots" content="noindex" />
-    <!-- simulate a Webflow page: some content above + a light body bg to prove scoping -->
     <style>
+      /* simulates a Webflow page: light body proves the embeds are scoped */
       body { margin: 0; background: #fff; color: #111; font-family: Arial, sans-serif; }
-      .page-above, .page-below { padding: 80px 6vw; }
+      .page-above { padding: 80px 6vw; }
       .page-above h1 { font-size: 40px; }
+      /* a footer section that hosts the standalone grid background */
+      .site-footer { position: relative; overflow: hidden; background: #101216; color: #f0f0eb; min-height: 420px; }
+      .site-footer .footer-inner { position: relative; z-index: 1; padding: 90px 6vw; }
+      .site-footer h2 { font-size: 30px; margin: 0 0 10px; }
+      .site-footer p { color: #9a9a9a; margin: 0; }
     </style>
     <link rel="stylesheet" href="hero.css" />
+    <link rel="stylesheet" href="grid.css" />
   </head>
   <body>
     <header class="page-above">
       <h1>Webflow page content ABOVE the embed</h1>
-      <p>If scoping works, this stays white/black and is unaffected by the dark section below.</p>
+      <p>Stays white/black — the dark embeds are scoped and don't leak.</p>
     </header>
 
-    <!-- ===== EMBED START ===== -->
+    <!-- ===== HERO EMBED (no custom cursor) ===== -->
     <div class="axamo-gh">
       <section class="hero" aria-label="Axamo global reach">
         <div class="hero-inner">
@@ -65,18 +71,21 @@
           </div>
         </div>
       </section>
-      <div class="cursor-ring" aria-hidden="true"></div>
     </div>
-    <!-- ===== EMBED END ===== -->
 
-    <footer class="page-below">
-      <h2>Webflow page content BELOW the embed</h2>
-      <p>Scroll up through the pinned section — this appears after it unpins.</p>
+    <!-- ===== FOOTER using the STANDALONE grid background ===== -->
+    <footer class="site-footer">
+      <div class="axamo-grid" aria-hidden="true"><canvas class="beams"></canvas></div>
+      <div class="footer-inner">
+        <h2>Footer with the reusable grid background</h2>
+        <p>Same grid + beam animation, behind the content.</p>
+      </div>
     </footer>
 
     <script src="land-data.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
     <script type="module" src="hero.js"></script>
+    <script src="grid.js"></script>
   </body>
 </html>

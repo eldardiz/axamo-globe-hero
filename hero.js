@@ -405,27 +405,6 @@ if (root && window.gsap && window.ScrollTrigger) {
     scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
   })
 
-  // cursor-follow ring (desktop only)
-  const ring = root.querySelector('.cursor-ring')
-  const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches
-  if (canHover && ring) {
-    let rx = innerWidth / 2, ry = innerHeight / 2, tx = rx, ty = ry
-    window.addEventListener('mousemove', (e) => {
-      tx = e.clientX
-      ty = e.clientY
-      ring.classList.add('is-visible')
-    })
-    gsap.ticker.add(() => {
-      rx += (tx - rx) * 0.18
-      ry += (ty - ry) * 0.18
-      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`
-    })
-    root.querySelectorAll('.cta').forEach((cta) => {
-      cta.addEventListener('mouseenter', () => ring.classList.add('is-hot'))
-      cta.addEventListener('mouseleave', () => ring.classList.remove('is-hot'))
-    })
-  }
-
   // magnetic CTA
   root.querySelectorAll('.cta').forEach((cta) => {
     cta.addEventListener('mousemove', (e) => {

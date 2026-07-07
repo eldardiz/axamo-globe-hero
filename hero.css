@@ -212,25 +212,6 @@
 .axamo-gh .cta-arrow { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
 .axamo-gh .cta:hover .cta-arrow { transform: translateX(4px); }
 
-/* ---------- cursor ring (desktop) ---------- */
-.axamo-gh .cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(200, 75, 48, 0.7);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 100;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.3s ease, width 0.25s ease, height 0.25s ease;
-  will-change: transform;
-}
-.axamo-gh .cursor-ring.is-visible { opacity: 1; }
-.axamo-gh .cursor-ring.is-hot { width: 54px; height: 54px; border-color: rgba(200, 75, 48, 1); }
-
 /* ---------- responsive ---------- */
 @media (max-width: 900px) {
   .axamo-gh .hero-inner {
@@ -250,10 +231,6 @@
   .axamo-gh .beat { margin-inline: auto; }
   .axamo-gh .beat-sub { margin-left: auto; margin-right: auto; }
   .axamo-gh .beat-title { font-size: clamp(30px, 8vw, 44px); }
-}
-
-@media (hover: none) {
-  .axamo-gh .cursor-ring { display: none; }
 }
 
 /* ---------- reduced motion ---------- */

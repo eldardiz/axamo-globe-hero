@@ -1,0 +1,19 @@
+<!--
+  ============================================================================
+  AXAMO GRID BACKGROUND — standalone (footer / any dark section)
+  Animated blueprint grid + travelling beam lines. No GSAP needed.
+
+  Setup in Webflow (2 quick settings so it sits BEHIND your content):
+    1. The section you drop this into  ->  Position: Relative,  Overflow: Hidden
+    2. That section's content wrapper   ->  Position: Relative,  Z-index: 1
+  Then drag an Embed element into the section and paste this block.
+  (Best over a DARK background — the lines/beams are light.)
+  ============================================================================
+-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v2/grid.css" />
+
+<div class="axamo-grid" aria-hidden="true">
+  <canvas class="beams"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v2/grid.js"></script>
