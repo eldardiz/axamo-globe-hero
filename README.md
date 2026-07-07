@@ -26,16 +26,16 @@ Both snippets are ~1–3 KB (well under Webflow's 10k embed limit); the heavy co
 loads from the CDN. You can use both on the same page — they're independently
 scoped and won't conflict.
 
-## Hosted files (jsDelivr, tag `@v2`)
+## Hosted files (jsDelivr, tag `@v3`)
 
 | File | URL |
 |---|---|
-| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v2/hero.css` |
-| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v2/hero.js` |
-| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v2/land-data.js` |
-| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v2/grid.css` |
-| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v2/grid.js` |
-| font (auto) | `…@v2/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
+| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v3/hero.css` |
+| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v3/hero.js` |
+| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v3/land-data.js` |
+| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v3/grid.css` |
+| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v3/grid.js` |
+| font (auto) | `…@v3/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
 
 (base = `https://cdn.jsdelivr.net`). three.js, GSAP and ScrollTrigger load from
 public CDNs. The **grid background needs no GSAP** — `grid.js` is a plain script.
