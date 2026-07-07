@@ -1,0 +1,66 @@
+<!--
+  ============================================================================
+  AXAMO GLOBE HERO — Webflow embed
+  Paste this whole block into a Webflow "Embed" element placed where you want a
+  full-width, full-height section. It loads the CSS/JS/map-data from jsDelivr.
+  Everything is scoped to .axamo-gh so it can't affect the rest of your page.
+  ============================================================================
+-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v1/hero.css" />
+
+<div class="axamo-gh">
+  <section class="hero" aria-label="Axamo global reach">
+    <div class="hero-inner">
+      <div class="grid" aria-hidden="true"><canvas class="beams" aria-hidden="true"></canvas></div>
+
+      <div class="spotlight" aria-hidden="true">
+        <svg viewBox="0 0 3787 2842" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#axgh-spot)">
+            <ellipse cx="1924.7" cy="273.5" rx="1924.7" ry="273.5" transform="matrix(-0.822 -0.569 -0.569 0.822 3631.9 2291.1)" fill="#ffffff" fill-opacity="0.062" />
+          </g>
+          <defs>
+            <filter id="axgh-spot" x="0.86" y="0.84" width="3785.16" height="2840.26" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+              <feGaussianBlur stdDeviation="151" result="effect1_foregroundBlur" />
+            </filter>
+          </defs>
+        </svg>
+      </div>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <span class="drift d1" aria-hidden="true"></span>
+      <span class="drift d2" aria-hidden="true"></span>
+      <span class="drift d3" aria-hidden="true"></span>
+
+      <div class="globe-col">
+        <div class="globe-glow" aria-hidden="true"></div>
+        <canvas class="globe-canvas"></canvas>
+      </div>
+
+      <div class="beats-col">
+        <div class="beats">
+          <article class="beat">
+            <h2 class="beat-title">Based in the <em>United States</em>.</h2>
+            <p class="beat-sub">A small, senior team, headquartered stateside.</p>
+          </article>
+          <article class="beat">
+            <h2 class="beat-title">Delivering across the <em>globe</em>.</h2>
+            <p class="beat-sub">Enterprise projects shipped for <em>European</em>, <em>UK</em> and <em>Asian</em> companies. Real work, not slideware.</p>
+          </article>
+          <article class="beat beat-cta">
+            <h2 class="beat-title">Let's build something <em>enduring</em>.</h2>
+            <p class="beat-sub">Wherever you are, we've probably shipped near you.</p>
+            <a class="cta" href="#"><span>See how we enable businesses</span><span class="cta-arrow" aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="cursor-ring" aria-hidden="true"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v1/land-data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v1/hero.js"></script>
