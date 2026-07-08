@@ -18,7 +18,7 @@
   --muted: #9a9a9a;
   --orange: #c84b30;
   --navy: #002855;
-  --line: rgba(240, 240, 235, 0.07); /* grid-line brightness at the BOTTOM; masked to fade toward the top */
+  --line: rgba(240, 240, 235, 0.07); /* grid-line brightness at the TOP; masked to fade out toward the bottom */
   --dot: rgba(240, 240, 235, 0.08);
   --hair: rgba(240, 240, 235, 0.12);
   --sans: 'AxamoSFPro', -apple-system, BlinkMacSystemFont, system-ui, Arial, sans-serif;
@@ -69,8 +69,8 @@
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: var(--cell) var(--cell);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 6%, #000 92%);
-  mask-image: linear-gradient(to bottom, transparent 6%, #000 92%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 8%, transparent 94%);
+  mask-image: linear-gradient(to bottom, #000 8%, transparent 94%);
 }
 
 /* animated grid beams — glowing travelling lines (hero.js). z-index 1 keeps them
@@ -171,6 +171,7 @@
   pointer-events: none;
   will-change: transform, opacity, filter;
 }
+.axamo-gh .axgh-mbr { display: none; } /* hidden on desktop; shown only on mobile (see media query) */
 .axamo-gh .beat-title {
   margin: 0;
   font-family: var(--sans);
@@ -231,6 +232,7 @@
   .axamo-gh .beat { margin-inline: auto; }
   .axamo-gh .beat-sub { margin-left: auto; margin-right: auto; }
   .axamo-gh .beat-title { font-size: clamp(30px, 8vw, 44px); }
+  .axamo-gh .axgh-mbr { display: inline; } /* mobile-only line break -> every headline is 2 lines */
 }
 
 /* ---------- reduced motion ---------- */
