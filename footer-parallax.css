@@ -1,0 +1,24 @@
+/* Footer Parallax Effect — Osmo Supply [https://osmo.supply/]
+   Packaged for the Axamo Webflow embeds. Styles target the resource's data-
+   attributes (per Osmo's docs) so no classes are needed in Webflow.
+   The wrapper goes around ONLY the Footer — never around the pinned hero. */
+
+[data-footer-parallax] {
+  position: relative;
+  overflow: hidden;
+  z-index: 1; /* sits above the shared spanning grid (which is z-0 in footer_wrap) */
+}
+
+/* dark layer that fades out as the footer reveals (Osmo .footer-wrap__dark,
+   color adapted to the Axamo dark theme — near-black so it dims, not muddies) */
+[data-footer-parallax-dark] {
+  opacity: 0;
+  pointer-events: none;
+  background-color: #05060a;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2; /* above the footer content even if the Footer kept a z-index from earlier setup */
+}

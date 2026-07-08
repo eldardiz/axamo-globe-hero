@@ -1,0 +1,22 @@
+<!--
+  ============================================================================
+  FOOTER PARALLAX REVEAL (Osmo Supply effect) — Webflow embed
+  The Footer slides into place (-25% lag) while a dark layer fades out, scrubbed
+  by scroll. GSAP/ScrollTrigger come from the hero embed — nothing extra to load.
+
+  Webflow setup (inside footer_wrap, which holds grid embed + globe-cta + Footer):
+    1. Add a Div Block around ONLY the Footer component (NOT around globe-cta —
+       wrapping the pinned hero would break its scroll-pin).
+    2. On that new div: Element settings -> Custom attributes ->
+         Name: data-footer-parallax   Value: true
+       (No class/styles needed — the CSS below targets the attribute.)
+    3. Drag an Embed INSIDE that div, below the Footer, and paste this block.
+  The Footer itself needs no attribute — the script auto-tags it. The dark layer
+  below is part of the effect; leave it in place.
+  ============================================================================
+-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v7/footer-parallax.css" />
+
+<div data-footer-parallax-dark></div>
+
+<script src="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v7/footer-parallax.js"></script>

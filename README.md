@@ -35,19 +35,38 @@ Result: the grid runs unbroken from the top of the hero down through the footer,
 dissolving softly at the very top and bottom edges. The grid is uniform, so it looks
 static even while the globe is pinned over it.
 
+## Footer parallax reveal (Osmo Supply effect)
+
+The Footer slides into place with a -25% lag while a dark layer fades out, scrubbed
+by scroll ([`footer-parallax-embed.html`](footer-parallax-embed.html)). Setup:
+
+1. In the Designer, add a **Div Block around ONLY the `Footer` component** (inside
+   `footer_wrap`, below `globe-cta`). Never wrap the hero — that breaks its pin.
+2. On that div: Custom attribute `data-footer-parallax` = `true`. No class needed —
+   `footer-parallax.css` styles the attribute (relative, overflow hidden, z-1).
+3. Drag an **Embed inside that div, below the Footer**, and paste
+   [`footer-parallax-embed.html`](footer-parallax-embed.html).
+
+The script auto-tags the Footer as the moving inner (`data-footer-parallax-inner`)
+and the pasted `data-footer-parallax-dark` div is the fading layer. GSAP comes from
+the hero embed. Tune the lag via `yPercent: -25` in `footer-parallax.js` (new tag).
+Effect source: Osmo Supply (osmo.supply) — logic unmodified.
+
 All snippets are ~1–3 KB (well under Webflow's 10k embed limit); the heavy code loads
 from the CDN. Everything is independently scoped and won't conflict.
 
-## Hosted files (jsDelivr, tag `@v6`)
+## Hosted files (jsDelivr, tag `@v7`)
 
 | File | URL |
 |---|---|
-| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v6/hero.css` |
-| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v6/hero.js` |
-| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v6/land-data.js` |
-| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v6/grid.css` |
-| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v6/grid.js` |
-| font (auto) | `…@v6/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
+| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v7/hero.css` |
+| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v7/hero.js` |
+| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v7/land-data.js` |
+| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v7/grid.css` |
+| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v7/grid.js` |
+| `footer-parallax.css` | `…/gh/eldardiz/axamo-globe-hero@v7/footer-parallax.css` |
+| `footer-parallax.js` | `…/gh/eldardiz/axamo-globe-hero@v7/footer-parallax.js` |
+| font (auto) | `…@v7/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
 
 (base = `https://cdn.jsdelivr.net`). three.js, GSAP and ScrollTrigger load from
 public CDNs. The **grid background needs no GSAP** — `grid.js` is a plain script.
