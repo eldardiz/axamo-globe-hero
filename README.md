@@ -20,9 +20,9 @@ on the Designer canvas).
 Your `footer_wrap` already contains the hero embed (`globe-cta`) and the `Footer`.
 Put ONE grid behind the whole wrapper:
 
-1. **`footer_wrap`** → Position **Relative**, Background **`#101216`** (the dark bg
-   now comes from here, not the hero). Do **NOT** set Overflow: Hidden — that would
-   break the hero's scroll-pin.
+1. **`footer_wrap`** → Position **Relative**. (No background needed — the spanning
+   grid paints the dark `#101216` surface itself.) Do **NOT** set Overflow: Hidden —
+   that would break the hero's scroll-pin.
 2. Add an **Embed as the first child** of `footer_wrap` → paste
    [`grid-embed.html`](grid-embed.html) (the spanning grid).
 3. `globe-cta` (hero) **and** `Footer` → Position **Relative**, **Z-index: 1** (so
@@ -38,16 +38,16 @@ static even while the globe is pinned over it.
 All snippets are ~1–3 KB (well under Webflow's 10k embed limit); the heavy code loads
 from the CDN. Everything is independently scoped and won't conflict.
 
-## Hosted files (jsDelivr, tag `@v5`)
+## Hosted files (jsDelivr, tag `@v6`)
 
 | File | URL |
 |---|---|
-| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v5/hero.css` |
-| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v5/hero.js` |
-| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v5/land-data.js` |
-| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v5/grid.css` |
-| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v5/grid.js` |
-| font (auto) | `…@v5/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
+| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v6/hero.css` |
+| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v6/hero.js` |
+| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v6/land-data.js` |
+| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v6/grid.css` |
+| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v6/grid.js` |
+| font (auto) | `…@v6/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
 
 (base = `https://cdn.jsdelivr.net`). three.js, GSAP and ScrollTrigger load from
 public CDNs. The **grid background needs no GSAP** — `grid.js` is a plain script.

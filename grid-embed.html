@@ -3,9 +3,11 @@
   AXAMO GRID BACKGROUND — shared / spanning grid
   One continuous grid + beam animation that sits behind a whole section. Put it
   in footer_wrap so it covers BOTH the globe hero and the footer (no seam).
+  The grid paints its own dark (#101216) surface, so the wrapper needs no bg.
 
   Webflow setup:
-    1. footer_wrap        -> Position: Relative,  Background: #101216 (dark)
+    1. footer_wrap        -> Position: Relative   (no background needed — the grid
+                             provides the dark surface itself)
     2. Paste this as the FIRST child of footer_wrap (an Embed element)
     3. The other children (globe-cta hero + Footer) -> Position: Relative, Z-index: 1
        (so they sit above the grid). Use the "bare" hero (embed-bare.html) so the
@@ -13,10 +15,10 @@
   No GSAP needed. Do NOT set overflow:hidden on footer_wrap (that breaks the hero pin).
   ============================================================================
 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v5/grid.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v6/grid.css" />
 
 <div class="axamo-grid" aria-hidden="true">
   <canvas class="beams"></canvas>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v5/grid.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v6/grid.js"></script>

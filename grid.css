@@ -13,6 +13,7 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none; /* never blocks clicks on the content above it */
+  background: #101216; /* provides the dark surface itself, so the wrapper doesn't need a bg set */
 }
 
 /* grid LINES on ::before so the vertical fade doesn't touch the beams */
