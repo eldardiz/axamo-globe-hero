@@ -1,41 +1,53 @@
 # Axamo Globe Hero — Webflow embeds
 
-Two drop-in Webflow embeds served from jsDelivr:
+Drop-in Webflow embeds served from jsDelivr. Two ways to use them:
 
-1. **Globe hero** ([`embed.html`](embed.html)) — the full scroll-driven section: a
-   three.js network globe that rotates continuously as you scroll (US → Europe →
-   back to America) while the copy cross-fades, over the grid + spotlight.
-2. **Grid background** ([`grid-embed.html`](grid-embed.html)) — just the animated
-   blueprint grid + travelling "beam" lines, as a reusable background layer for a
-   footer or any other dark section.
+- **Standalone hero** ([`embed.html`](embed.html)) — the full scroll-driven section
+  (globe + grid + spotlight) with its own built-in grid. Drop it anywhere.
+- **Shared grid across hero + footer (recommended when they're adjacent)** — one
+  continuous grid behind BOTH the hero and the footer, so there's no seam between
+  them. Uses the **bare hero** ([`embed-bare.html`](embed-bare.html), transparent +
+  grid-less) plus the **spanning grid** ([`grid-embed.html`](grid-embed.html)).
 
-## How to add them in Webflow
+## Standalone hero
 
-**Globe hero:** drag an **Embed** element where you want the section (parent
-full-width; it sizes itself to `100vh`), paste [`embed.html`](embed.html), and
-**Publish** (WebGL/scroll won't run on the Designer canvas).
+Drag an **Embed** where you want the section (parent full-width; it sizes itself to
+`100vh`), paste [`embed.html`](embed.html), and **Publish** (WebGL/scroll won't run
+on the Designer canvas).
 
-**Grid background (e.g. footer):** two quick settings so it sits behind content —
-1. the section → **Position: Relative**, **Overflow: Hidden**
-2. that section's content wrapper → **Position: Relative**, **Z-index: 1**
+## Shared grid across hero + footer (one continuous background)
 
-then drop an Embed into the section and paste [`grid-embed.html`](grid-embed.html).
-Best over a **dark** background (the lines/beams are light).
+Your `footer_wrap` already contains the hero embed (`globe-cta`) and the `Footer`.
+Put ONE grid behind the whole wrapper:
 
-Both snippets are ~1–3 KB (well under Webflow's 10k embed limit); the heavy code
-loads from the CDN. You can use both on the same page — they're independently
-scoped and won't conflict.
+1. **`footer_wrap`** → Position **Relative**, Background **`#101216`** (the dark bg
+   now comes from here, not the hero). Do **NOT** set Overflow: Hidden — that would
+   break the hero's scroll-pin.
+2. Add an **Embed as the first child** of `footer_wrap` → paste
+   [`grid-embed.html`](grid-embed.html) (the spanning grid).
+3. `globe-cta` (hero) **and** `Footer` → Position **Relative**, **Z-index: 1** (so
+   they sit above the grid).
+4. In the `globe-cta` Embed, use the **bare** hero → paste
+   [`embed-bare.html`](embed-bare.html) (transparent, no internal grid, so the shared
+   grid shows through it).
 
-## Hosted files (jsDelivr, tag `@v4`)
+Result: the grid runs unbroken from the top of the hero down through the footer,
+dissolving softly at the very top and bottom edges. The grid is uniform, so it looks
+static even while the globe is pinned over it.
+
+All snippets are ~1–3 KB (well under Webflow's 10k embed limit); the heavy code loads
+from the CDN. Everything is independently scoped and won't conflict.
+
+## Hosted files (jsDelivr, tag `@v5`)
 
 | File | URL |
 |---|---|
-| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v4/hero.css` |
-| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v4/hero.js` |
-| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v4/land-data.js` |
-| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v4/grid.css` |
-| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v4/grid.js` |
-| font (auto) | `…@v4/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
+| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v5/hero.css` |
+| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v5/hero.js` |
+| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v5/land-data.js` |
+| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v5/grid.css` |
+| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v5/grid.js` |
+| font (auto) | `…@v5/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
 
 (base = `https://cdn.jsdelivr.net`). three.js, GSAP and ScrollTrigger load from
 public CDNs. The **grid background needs no GSAP** — `grid.js` is a plain script.

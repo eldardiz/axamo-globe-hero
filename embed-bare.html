@@ -1,18 +1,18 @@
 <!--
   ============================================================================
-  AXAMO GLOBE HERO — Webflow embed
-  Paste this whole block into a Webflow "Embed" element placed where you want a
-  full-width, full-height section. It loads the CSS/JS/map-data from jsDelivr.
-  Everything is scoped to .axamo-gh so it can't affect the rest of your page.
+  AXAMO GLOBE HERO — "bare" variant (transparent, no internal grid)
+  Use this ONLY with the shared spanning grid (see grid-embed.html) so ONE grid
+  sits behind both the hero and the footer. Paste this into the "globe-cta" Embed
+  inside footer_wrap. The dark background comes from footer_wrap (set it to
+  #101216), and the shared grid shows through this transparent hero.
+  (For a standalone hero with its own grid, use embed.html instead.)
   ============================================================================
 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v5/hero.css" />
 
-<div class="axamo-gh">
+<div class="axamo-gh axamo-bare">
   <section class="hero" aria-label="Axamo global reach">
     <div class="hero-inner">
-      <div class="grid" aria-hidden="true"><canvas class="beams" aria-hidden="true"></canvas></div>
-
       <div class="spotlight" aria-hidden="true">
         <svg viewBox="0 0 3787 2842" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g filter="url(#axgh-spot)">
@@ -40,19 +40,9 @@
 
       <div class="beats-col">
         <div class="beats">
-          <article class="beat">
-            <h2 class="beat-title">Based in the <br class="axgh-mbr" /><em>United States</em>.</h2>
-            <p class="beat-sub">A small, senior team, headquartered stateside.</p>
-          </article>
-          <article class="beat">
-            <h2 class="beat-title">Delivering <br class="axgh-mbr" />across the <em>globe</em>.</h2>
-            <p class="beat-sub">Enterprise projects shipped for <em>European</em>, <em>UK</em> and <em>Asian</em> companies. Real work, not slideware.</p>
-          </article>
-          <article class="beat beat-cta">
-            <h2 class="beat-title">Let's build <br class="axgh-mbr" />something <em>enduring</em>.</h2>
-            <p class="beat-sub">Wherever you are, we've probably shipped near you.</p>
-            <a class="cta" href="#"><span>See how we enable businesses</span><span class="cta-arrow" aria-hidden="true">→</span></a>
-          </article>
+          <article class="beat"><h2 class="beat-title">Based in the <br class="axgh-mbr" /><em>United States</em>.</h2><p class="beat-sub">A small, senior team, headquartered stateside.</p></article>
+          <article class="beat"><h2 class="beat-title">Delivering <br class="axgh-mbr" />across the <em>globe</em>.</h2><p class="beat-sub">Enterprise projects shipped for <em>European</em>, <em>UK</em> and <em>Asian</em> companies. Real work, not slideware.</p></article>
+          <article class="beat beat-cta"><h2 class="beat-title">Let's build <br class="axgh-mbr" />something <em>enduring</em>.</h2><p class="beat-sub">Wherever you are, we've probably shipped near you.</p><a class="cta" href="#"><span>See how we enable businesses</span><span class="cta-arrow" aria-hidden="true">→</span></a></article>
         </div>
       </div>
     </div>

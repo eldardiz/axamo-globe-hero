@@ -41,6 +41,12 @@
   overflow: hidden;
   background: var(--bg);
 }
+/* "bare" hero: transparent + no internal grid. Use when a single shared grid sits
+   behind the whole footer_wrap (hero + footer); the dark bg then comes from
+   footer_wrap, and the shared grid shows through the hero. */
+.axamo-gh.axamo-bare,
+.axamo-gh.axamo-bare .hero { background: transparent; }
+.axamo-gh.axamo-bare .grid { display: none; }
 .axamo-gh .hero-inner {
   position: relative;
   height: 100%;

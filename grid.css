@@ -1,11 +1,12 @@
-/* Axamo grid background — standalone, reusable background layer (e.g. footer).
-   Blueprint grid lines that fade top->bottom + animated travelling "beams".
-   Scoped to .axamo-grid; keyframes/vars namespaced so nothing else is affected.
+/* Axamo grid background — standalone, reusable background layer.
+   Blueprint grid lines + animated travelling "beams". Scoped to .axamo-grid;
+   soft-fades only at its very top & bottom edges so it reads as ONE continuous
+   surface across a tall container (e.g. a footer_wrap holding hero + footer).
    Meant to sit behind content on a DARK section. */
 
 .axamo-grid {
   --cell: 64px; /* grid square size — shared by the CSS lines and the beams (grid.js) */
-  --line: rgba(240, 240, 235, 0.07); /* line brightness at the TOP; masked to fade out toward the bottom */
+  --line: rgba(240, 240, 235, 0.07); /* grid-line brightness (soft-faded at top & bottom edges) */
 
   position: absolute; /* fills the nearest positioned ancestor (give it position: relative) */
   inset: 0;
@@ -24,8 +25,8 @@
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: var(--cell) var(--cell);
-  -webkit-mask-image: linear-gradient(to bottom, #000 8%, transparent 94%);
-  mask-image: linear-gradient(to bottom, #000 8%, transparent 94%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 93%, transparent 100%);
 }
 
 /* animated beams canvas, above the lines */

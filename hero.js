@@ -326,7 +326,8 @@ if (root && window.gsap && window.ScrollTrigger) {
 
   const hero = root.querySelector('.hero')
   const globe = initGlobe(root.querySelector('.globe-canvas'))
-  initBeams(root.querySelector('.grid'))
+  const gridEl = root.querySelector('.grid') // absent in the "bare" hero (shared grid lives behind footer_wrap)
+  if (gridEl) initBeams(gridEl)
 
   const beats = [...root.querySelectorAll('.beat')]
   const SCROLL_PER_BEAT = 165 // % of viewport of scroll per beat (longer = slower turn)
@@ -398,8 +399,8 @@ if (root && window.gsap && window.ScrollTrigger) {
   })
   ScrollTrigger.addEventListener('refresh', () => globe.resize())
 
-  // subtle grid parallax
-  gsap.to(root.querySelector('.grid'), {
+  // subtle grid parallax (only when this hero renders its own grid)
+  if (gridEl) gsap.to(gridEl, {
     yPercent: 5,
     ease: 'none',
     scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
