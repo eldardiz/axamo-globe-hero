@@ -34,7 +34,7 @@ Put ONE grid behind the whole wrapper:
 Result: one grid behind hero + footer, **viewport-fixed** — the lines are glued to
 the screen (no drift while scrolling; grid.js scroll-syncs a translate, contained to
 the section), with a **radial mask**: brightest at the viewport centre (`--line`,
-15% white) fading to 0 at the screen corners. The beams ride the same fixed layer.
+7.5% white) fading to 0 at the screen corners. The beams ride the same fixed layer.
 
 ## Footer parallax reveal (Osmo Supply effect, self-contained)
 
