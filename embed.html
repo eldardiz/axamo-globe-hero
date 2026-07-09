@@ -32,6 +32,13 @@
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
     mask-image: linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
   }
+  /* all beats share one cell whose height the calendar sets — centre the copy of
+     the beats that don't have a calendar (the calendar beat fills it anyway) */
+  .axamo-gh .beat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 </style>
 
 <div class="axamo-gh">
