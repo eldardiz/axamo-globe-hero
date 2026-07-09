@@ -60,16 +60,16 @@ on Publish, no tag/CDN involved. Motion spec: Osmo Supply (osmo.supply).
 All snippets are ~1–3 KB (well under Webflow's 10k embed limit); the heavy code loads
 from the CDN. Everything is independently scoped and won't conflict.
 
-## Hosted files (jsDelivr, tag `@v8`)
+## Hosted files (jsDelivr, tag `@v9`)
 
 | File | URL |
 |---|---|
-| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v8/hero.css` |
-| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v8/hero.js` |
-| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v8/land-data.js` |
-| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v8/grid.css` |
-| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v8/grid.js` |
-| font (auto) | `…@v8/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
+| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v9/hero.css` |
+| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v9/hero.js` |
+| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v9/land-data.js` |
+| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v9/grid.css` |
+| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v9/grid.js` |
+| font (auto) | `…@v9/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
 
 (The footer parallax is NOT on the CDN — it lives entirely inside
 [`footer-parallax-embed.html`](footer-parallax-embed.html), pasted into Webflow.)
