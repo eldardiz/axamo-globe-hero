@@ -1,40 +1,53 @@
 /* Axamo grid background — standalone, reusable background layer.
-   Blueprint grid lines + animated travelling "beams". Scoped to .axamo-grid;
-   soft-fades only at its very top & bottom edges so it reads as ONE continuous
-   surface across a tall container (e.g. a footer_wrap holding hero + footer).
-   Meant to sit behind content on a DARK section. */
+   Blueprint grid lines + animated travelling "beams", VIEWPORT-FIXED: the line
+   layer and the beam canvas are viewport-sized layers glued to the screen via a
+   scroll-synced translate (--vp-y, set by grid.js), clipped to the section. The
+   grid stays stationary while you scroll — like position:fixed, but contained.
+   A radial mask keeps lines brightest at the viewport centre (--line), fading
+   to 0 at the corners. Meant to sit behind content on a DARK section. */
 
 .axamo-grid {
   --cell: 64px; /* grid square size — shared by the CSS lines and the beams (grid.js) */
-  --line: rgba(240, 240, 235, 0.07); /* grid-line brightness (soft-faded at top & bottom edges) */
+  --line: rgba(255, 255, 255, 0.15); /* line brightness at the viewport CENTRE (radial-masked to 0 at corners) */
+  --vp-y: 0px; /* scroll-synced by grid.js: keeps the layers glued to the viewport */
 
   position: absolute; /* fills the nearest positioned ancestor (give it position: relative) */
   inset: 0;
   z-index: 0;
-  overflow: hidden;
+  overflow: hidden; /* clips the viewport-glued layers to the section */
   pointer-events: none; /* never blocks clicks on the content above it */
   background: #101216; /* provides the dark surface itself, so the wrapper doesn't need a bg set */
 }
 
-/* grid LINES on ::before so the vertical fade doesn't touch the beams */
+/* grid LINES: a viewport-height layer translated to stay fixed to the screen.
+   The radial mask rides the layer, so the bright centre stays at screen centre. */
 .axamo-grid::before {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
   z-index: 0;
+  transform: translateY(var(--vp-y));
   background-image:
     linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: var(--cell) var(--cell);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 93%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 6%, #000 93%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse farthest-corner at 50% 50%, #000 0%, #000 25%, transparent 100%);
+  mask-image: radial-gradient(ellipse farthest-corner at 50% 50%, #000 0%, #000 25%, transparent 100%);
 }
 
-/* animated beams canvas, above the lines */
+/* animated beams canvas — same viewport-glued layer + the same radial mask, so
+   beams dim toward the corners together with the lines they travel on */
 .axamo-grid .beams {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   z-index: 1;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  transform: translateY(var(--vp-y));
+  -webkit-mask-image: radial-gradient(ellipse farthest-corner at 50% 50%, #000 0%, #000 25%, transparent 100%);
+  mask-image: radial-gradient(ellipse farthest-corner at 50% 50%, #000 0%, #000 25%, transparent 100%);
 }

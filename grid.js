@@ -1,6 +1,8 @@
 // Axamo grid background — standalone beams engine. No dependencies (plain script).
 // Finds every .axamo-grid on the page and animates travelling "beam" lines along
-// its grid. Reusable: drop it in a hero, a footer, or several sections at once.
+// its grid. The grid is VIEWPORT-FIXED: grid.js keeps the layers glued to the
+// screen by scroll-syncing the --vp-y translate (see grid.css); the canvas and
+// beam coordinates are viewport-sized, so beams stay locked to the fixed lines.
 (function () {
   'use strict'
 
@@ -22,16 +24,33 @@
     function resize() {
       cell = parseFloat(getComputedStyle(grid).getPropertyValue('--cell')) || 64
       var dpr = Math.min(2, window.devicePixelRatio || 1)
-      W = grid.clientWidth
-      H = grid.clientHeight
+      // viewport-sized: the canvas is a screen-glued layer (grid.css translates it)
+      W = window.innerWidth
+      H = window.innerHeight
       canvas.width = Math.round(W * dpr)
       canvas.height = Math.round(H * dpr)
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
     resize()
     window.addEventListener('resize', resize)
-    // footers change height (fonts/images/reflow) — keep the canvas in sync
-    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(grid)
+
+    // ---- viewport glue: keep the line layer + canvas fixed to the screen ----
+    // --vp-y = how far the section has scrolled past the viewport top, clamped
+    // so the layers never slide beyond the section's own bounds.
+    var syncQueued = false
+    function syncViewport() {
+      syncQueued = false
+      var top = grid.getBoundingClientRect().top
+      var y = Math.max(0, Math.min(-top, grid.offsetHeight - window.innerHeight))
+      grid.style.setProperty('--vp-y', y.toFixed(1) + 'px')
+    }
+    function queueSync() {
+      if (!syncQueued) { syncQueued = true; requestAnimationFrame(syncViewport) }
+    }
+    window.addEventListener('scroll', queueSync, { passive: true })
+    window.addEventListener('resize', queueSync)
+    window.addEventListener('load', queueSync) // section height settles after fonts/images
+    syncViewport()
 
     function makePath() {
       var cols = Math.max(4, Math.floor(W / cell))

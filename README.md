@@ -31,9 +31,10 @@ Put ONE grid behind the whole wrapper:
    [`embed-bare.html`](embed-bare.html) (transparent, no internal grid, so the shared
    grid shows through it).
 
-Result: the grid runs unbroken from the top of the hero down through the footer,
-dissolving softly at the very top and bottom edges. The grid is uniform, so it looks
-static even while the globe is pinned over it.
+Result: one grid behind hero + footer, **viewport-fixed** — the lines are glued to
+the screen (no drift while scrolling; grid.js scroll-syncs a translate, contained to
+the section), with a **radial mask**: brightest at the viewport centre (`--line`,
+15% white) fading to 0 at the screen corners. The beams ride the same fixed layer.
 
 ## Footer parallax reveal (Osmo Supply effect, self-contained)
 
@@ -59,16 +60,16 @@ on Publish, no tag/CDN involved. Motion spec: Osmo Supply (osmo.supply).
 All snippets are ~1–3 KB (well under Webflow's 10k embed limit); the heavy code loads
 from the CDN. Everything is independently scoped and won't conflict.
 
-## Hosted files (jsDelivr, tag `@v7`)
+## Hosted files (jsDelivr, tag `@v8`)
 
 | File | URL |
 |---|---|
-| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v7/hero.css` |
-| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v7/hero.js` |
-| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v7/land-data.js` |
-| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v7/grid.css` |
-| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v7/grid.js` |
-| font (auto) | `…@v7/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
+| `hero.css` | `…/gh/eldardiz/axamo-globe-hero@v8/hero.css` |
+| `hero.js` | `…/gh/eldardiz/axamo-globe-hero@v8/hero.js` |
+| `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v8/land-data.js` |
+| `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v8/grid.css` |
+| `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v8/grid.js` |
+| font (auto) | `…@v8/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
 
 (The footer parallax is NOT on the CDN — it lives entirely inside
 [`footer-parallax-embed.html`](footer-parallax-embed.html), pasted into Webflow.)
