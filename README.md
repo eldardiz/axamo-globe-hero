@@ -35,22 +35,26 @@ Result: the grid runs unbroken from the top of the hero down through the footer,
 dissolving softly at the very top and bottom edges. The grid is uniform, so it looks
 static even while the globe is pinned over it.
 
-## Footer parallax reveal (Osmo Supply effect)
+## Footer parallax reveal (Osmo Supply effect, self-contained)
 
 The Footer slides into place with a -25% lag while a dark layer fades out, scrubbed
-by scroll ([`footer-parallax-embed.html`](footer-parallax-embed.html)). Setup:
+by scroll. **Fully inline** — [`footer-parallax-embed.html`](footer-parallax-embed.html)
+carries its own CSS + vanilla JS; nothing loads from the CDN and it does NOT use
+GSAP. (The GSAP/ScrollTrigger original broke on the live site, which loads three
+different GSAP versions incl. an old ScrollTrigger 3.11.3 that doesn't support
+clamp() trigger positions — the dependency-free version is immune.) Setup:
 
 1. In the Designer, add a **Div Block around ONLY the `Footer` component** (inside
    `footer_wrap`, below `globe-cta`). Never wrap the hero — that breaks its pin.
 2. On that div: Custom attribute `data-footer-parallax` = `true`. No class needed —
-   `footer-parallax.css` styles the attribute (relative, overflow hidden, z-1).
+   the inline CSS styles the attribute (relative, overflow hidden, z-1).
 3. Drag an **Embed inside that div, below the Footer**, and paste
-   [`footer-parallax-embed.html`](footer-parallax-embed.html).
+   [`footer-parallax-embed.html`](footer-parallax-embed.html) in full.
 
 The script auto-tags the Footer as the moving inner (`data-footer-parallax-inner`)
-and the pasted `data-footer-parallax-dark` div is the fading layer. GSAP comes from
-the hero embed. Tune the lag via `yPercent: -25` in `footer-parallax.js` (new tag).
-Effect source: Osmo Supply (osmo.supply) — logic unmodified.
+and the pasted `data-footer-parallax-dark` div is the fading layer. Tune via the
+`SHIFT` (-25) and `DIM` (0.5) consts at the top of the inline script — edits apply
+on Publish, no tag/CDN involved. Motion spec: Osmo Supply (osmo.supply).
 
 All snippets are ~1–3 KB (well under Webflow's 10k embed limit); the heavy code loads
 from the CDN. Everything is independently scoped and won't conflict.
@@ -64,9 +68,10 @@ from the CDN. Everything is independently scoped and won't conflict.
 | `land-data.js` | `…/gh/eldardiz/axamo-globe-hero@v7/land-data.js` |
 | `grid.css` | `…/gh/eldardiz/axamo-globe-hero@v7/grid.css` |
 | `grid.js` | `…/gh/eldardiz/axamo-globe-hero@v7/grid.js` |
-| `footer-parallax.css` | `…/gh/eldardiz/axamo-globe-hero@v7/footer-parallax.css` |
-| `footer-parallax.js` | `…/gh/eldardiz/axamo-globe-hero@v7/footer-parallax.js` |
 | font (auto) | `…@v7/fonts/SF-Pro-Display-Regular.otf` (referenced by hero.css) |
+
+(The footer parallax is NOT on the CDN — it lives entirely inside
+[`footer-parallax-embed.html`](footer-parallax-embed.html), pasted into Webflow.)
 
 (base = `https://cdn.jsdelivr.net`). three.js, GSAP and ScrollTrigger load from
 public CDNs. The **grid background needs no GSAP** — `grid.js` is a plain script.

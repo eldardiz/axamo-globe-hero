@@ -1,22 +1,102 @@
 <!--
   ============================================================================
-  FOOTER PARALLAX REVEAL (Osmo Supply effect) — Webflow embed
-  The Footer slides into place (-25% lag) while a dark layer fades out, scrubbed
-  by scroll. GSAP/ScrollTrigger come from the hero embed — nothing extra to load.
+  FOOTER PARALLAX REVEAL — fully self-contained Webflow embed (no dependencies)
+  Motion is the Osmo Supply footer-parallax effect (footer slides in with a -25%
+  lag while a dark layer fades from 0.5 to 0, scrubbed by scroll), reimplemented
+  in ~20 lines of vanilla JS. Why not the GSAP original: this site loads three
+  different GSAP versions + an old ScrollTrigger (3.11.3) that breaks clamp()
+  trigger positions — the dependency-free version is immune to all of that.
 
-  Webflow setup (inside footer_wrap, which holds grid embed + globe-cta + Footer):
-    1. Add a Div Block around ONLY the Footer component (NOT around globe-cta —
-       wrapping the pinned hero would break its scroll-pin).
-    2. On that new div: Element settings -> Custom attributes ->
-         Name: data-footer-parallax   Value: true
-       (No class/styles needed — the CSS below targets the attribute.)
-    3. Drag an Embed INSIDE that div, below the Footer, and paste this block.
-  The Footer itself needs no attribute — the script auto-tags it. The dark layer
-  below is part of the effect; leave it in place.
+  Webflow setup (unchanged):
+    1. Div Block around ONLY the Footer (inside footer_wrap, below globe-cta).
+    2. On that div: Custom attribute  data-footer-parallax = true
+    3. Drag an Embed INSIDE that div, below the Footer, paste this whole block.
   ============================================================================
 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v7/footer-parallax.css" />
+<style>
+  [data-footer-parallax] {
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* above the shared spanning grid */
+  }
+  [data-footer-parallax-inner] {
+    will-change: transform;
+  }
+  [data-footer-parallax-dark] {
+    opacity: 0;
+    pointer-events: none;
+    background-color: #05060a;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2; /* above the footer content */
+  }
+</style>
 
 <div data-footer-parallax-dark></div>
 
-<script src="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v7/footer-parallax.js"></script>
+<script>
+(function () {
+  'use strict'
+  var SHIFT = -25 // % the footer lags behind (Osmo default)
+  var DIM = 0.5 //   dark-layer opacity at the start of the reveal
+
+  function init() {
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+    var items = []
+
+    document.querySelectorAll('[data-footer-parallax]').forEach(function (el) {
+      // auto-tag the Footer as the moving inner (first real child)
+      var inner = el.querySelector('[data-footer-parallax-inner]')
+      if (!inner) {
+        inner = Array.prototype.find.call(el.children, function (c) {
+          return (
+            !c.hasAttribute('data-footer-parallax-dark') &&
+            c.tagName !== 'SCRIPT' && c.tagName !== 'LINK' && c.tagName !== 'STYLE' &&
+            !c.classList.contains('w-embed')
+          )
+        })
+        if (inner) inner.setAttribute('data-footer-parallax-inner', '')
+      }
+      // inject the dark layer if it isn't in the markup
+      var dark = el.querySelector('[data-footer-parallax-dark]')
+      if (!dark) {
+        dark = document.createElement('div')
+        dark.setAttribute('data-footer-parallax-dark', '')
+        el.appendChild(dark)
+      }
+      if (inner) items.push({ el: el, inner: inner, dark: dark })
+    })
+    if (!items.length) return
+
+    function update() {
+      var vh = window.innerHeight
+      var max = document.documentElement.scrollHeight - vh
+      var y = window.scrollY
+      items.forEach(function (it) {
+        // reveal window: wrapper top travelling from viewport bottom to viewport
+        // top, clamped to the scrollable range (footer usually ends the page)
+        var top = it.el.getBoundingClientRect().top + y
+        var start = Math.max(0, Math.min(top - vh, max))
+        var end = Math.min(top, max)
+        var p = end > start ? Math.min(1, Math.max(0, (y - start) / (end - start))) : 1
+        if (reduce) p = 1 // no motion: rest state
+        it.inner.style.transform = 'translateY(' + SHIFT * (1 - p) + '%)'
+        it.dark.style.opacity = (DIM * (1 - p)).toFixed(3)
+      })
+    }
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    window.addEventListener('load', update)
+    update()
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init)
+  } else {
+    init()
+  }
+})()
+</script>
