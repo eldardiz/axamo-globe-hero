@@ -41,6 +41,13 @@
     flex-direction: column;
     justify-content: center;
   }
+  /* mobile: give the calendar beat more row + fit the card within the viewport */
+  @media (max-width: 900px) {
+    .axamo-gh .hero-inner { grid-template-rows: 34% 66%; }
+    .axamo-gh .beat-cta .beat-title { font-size: clamp(24px, 6.4vw, 34px); }
+    .axamo-gh .beat-cta .beat-sub { font-size: 15px; margin-top: 12px; }
+    .axamo-gh .tidycal-wrap { margin-top: 16px; height: clamp(240px, calc(66vh - 240px), 460px); }
+  }
 </style>
 
 <div class="axamo-gh axamo-bare">
@@ -83,6 +90,16 @@
 </div>
 
 <script src="https://asset-tidycal.b-cdn.net/js/embed.js" async></script>
+<script>
+  // TidyCal calls scrollIntoView() on its iframe when the booking page navigates,
+  // which scrolls the overflow:hidden hero's INTERNAL scrollTop and shifts the
+  // whole layout up (globe cropped off-screen). Pin the hero's scroll at 0.
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.axamo-gh .hero, .axamo-gh .hero-inner, .axamo-gh .beats-col').forEach(function (el) {
+      el.addEventListener('scroll', function () { el.scrollTop = 0; el.scrollLeft = 0 }, { passive: true })
+    })
+  })
+</script>
 <script src="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v9/land-data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
