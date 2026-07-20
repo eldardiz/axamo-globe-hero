@@ -8,7 +8,7 @@
 
 .axamo-grid {
   --cell: 64px; /* grid square size — shared by the CSS lines and the beams (grid.js) */
-  --line: rgba(255, 255, 255, 0.075); /* line brightness at the viewport CENTRE (radial-masked to 0 at corners) */
+  --line: rgba(255, 255, 255, 0.0375); /* line brightness at the viewport CENTRE (radial-masked to 0 at corners) */
   --vp-y: 0px; /* scroll-synced by grid.js: keeps the layers glued to the viewport */
 
   position: absolute; /* fills the nearest positioned ancestor (give it position: relative) */
