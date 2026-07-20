@@ -1,0 +1,74 @@
+<!--
+  ============================================================================
+  NAVBAR THEME SWITCHER — fully self-contained Webflow embed (no dependencies)
+  The bottom-fixed navbar (.navbar_container) flips to dark mode while it floats
+  over any section marked  data-nav-theme="dark"  (and back to light elsewhere).
+  Detection: on scroll, checks which themed section is under the navbar's centre
+  line — works fine with the pinned hero (live rects, no IntersectionObserver).
+
+  Webflow setup:
+    1. On footer_wrap (and any other dark section):
+         Element settings -> Custom attributes ->  data-nav-theme = dark
+    2. Paste this block in Page settings -> Custom code -> Before </body> tag
+       (or as an Embed element anywhere on the page).
+  Tune the dark palette in the CSS below.
+  ============================================================================
+-->
+<style>
+  /* smooth swap */
+  .navbar_container,
+  .navbar_container .navbar_links,
+  .navbar_container .letter-wrap,
+  .navbar_container .button.small-dark {
+    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+  /* dark mode: dark glass pill, light links, inverted CTA.
+     !important is required — Webflow interactions write INLINE styles on the
+     pill/links every scroll tick, and inline loses only to !important rules. */
+  .navbar_container.is-dark {
+    background-color: rgba(22, 24, 29, 0.82) !important;
+    color: #f0f0eb !important;
+  }
+  .navbar_container.is-dark .navbar_links,
+  .navbar_container.is-dark .letter-wrap,
+  .navbar_container.is-dark .letter-wrap * {
+    color: #f0f0eb !important;
+  }
+  .navbar_container.is-dark .button.small-dark {
+    background-color: #f0f0eb !important;
+    color: #1a1a1a !important;
+  }
+</style>
+
+<script>
+(function () {
+  'use strict'
+  function init() {
+    var nav = document.querySelector('.navbar_container')
+    var sections = [].slice.call(document.querySelectorAll('[data-nav-theme]'))
+    if (!nav || !sections.length) return
+
+    var queued = false
+    function update() {
+      queued = false
+      var r = nav.getBoundingClientRect()
+      var mid = r.top + r.height / 2
+      var theme = 'light'
+      for (var i = 0; i < sections.length; i++) {
+        var s = sections[i].getBoundingClientRect()
+        if (s.top <= mid && s.bottom >= mid) theme = sections[i].getAttribute('data-nav-theme') || 'dark'
+      }
+      nav.classList.toggle('is-dark', theme === 'dark')
+    }
+    function queue() {
+      if (!queued) { queued = true; requestAnimationFrame(update) }
+    }
+    window.addEventListener('scroll', queue, { passive: true })
+    window.addEventListener('resize', queue)
+    window.addEventListener('load', queue)
+    update()
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init)
+  else init()
+})()
+</script>
