@@ -21,7 +21,8 @@
   --line: rgba(240, 240, 235, 0.07); /* grid-line brightness at the TOP; masked to fade out toward the bottom */
   --dot: rgba(240, 240, 235, 0.08);
   --hair: rgba(240, 240, 235, 0.12);
-  --sans: 'AxamoSFPro', -apple-system, BlinkMacSystemFont, system-ui, Arial, sans-serif;
+  --sans: 'AxamoSFPro', 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, Arial, sans-serif;
+  --serif: 'Instrument Serif', Georgia, serif; /* accent words — same face axamo.co uses */
 
   position: relative;
   width: 100%;
@@ -188,7 +189,14 @@
   color: var(--ink);
   text-wrap: balance;
 }
-.axamo-gh .beat-title em { font-style: normal; color: var(--orange); }
+/* accent words: Instrument Serif italic in white (matches axamo.co headlines) */
+.axamo-gh .beat-title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
 .axamo-gh .beat-sub {
   margin: 20px 0 0;
   max-width: 46ch;
