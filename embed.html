@@ -92,6 +92,32 @@
   </section>
 </div>
 
+<script>
+  // TidyCal's embed.js calls scrollIntoView() on its iframe on every load after
+  // the first — and their booking page redirects once while loading, so visitors
+  // get YANKED down to this section on page entry. It also scrolls the hero's
+  // internal overflow. Fix: neutralise scrollIntoView on TidyCal iframes only
+  // (as they appear), and pin the hero's internal scroll at 0.
+  (function () {
+    var patch = function (f) { f.scrollIntoView = function () {} }
+    document.querySelectorAll('iframe[src*="tidycal"]').forEach(patch)
+    new MutationObserver(function (muts) {
+      muts.forEach(function (m) {
+        Array.prototype.forEach.call(m.addedNodes, function (n) {
+          if (n.nodeType !== 1) return
+          if (n.tagName === 'IFRAME' && /tidycal/.test(n.src || '')) patch(n)
+          else if (n.querySelectorAll) n.querySelectorAll('iframe[src*="tidycal"]').forEach(patch)
+        })
+      })
+    }).observe(document, { childList: true, subtree: true })
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.axamo-gh .hero, .axamo-gh .hero-inner, .axamo-gh .beats-col').forEach(function (el) {
+        el.addEventListener('scroll', function () { el.scrollTop = 0; el.scrollLeft = 0 }, { passive: true })
+      })
+    })
+  })()
+</script>
 <script src="https://asset-tidycal.b-cdn.net/js/embed.js" async></script>
 <script src="https://cdn.jsdelivr.net/gh/eldardiz/axamo-globe-hero@v10/land-data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
