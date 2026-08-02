@@ -349,10 +349,12 @@ if (root && window.gsap && window.ScrollTrigger) {
     return { lat: a.lat + (b.lat - a.lat) * s, lng: a.lng + (b.lng - a.lng) * s }
   }
 
+  // TWO blocks: 1 = "based in the US, delivering across the globe" (holds while the
+  // globe turns US -> Europe), 2 = "let's build" + calendar (holds to the end while
+  // the globe comes home to America the long way round)
   const FADE = [
-    { in0: -1, in1: -1, out0: 0.18, out1: 0.32 },
-    { in0: 0.24, in1: 0.40, out0: 0.72, out1: 0.84 },
-    { in0: 0.78, in1: 0.94, out0: 2, out1: 2 },
+    { in0: -1, in1: -1, out0: 0.5, out1: 0.66 },
+    { in0: 0.58, in1: 0.74, out0: 2, out1: 2 },
   ]
   function opacityAt(p, f) {
     if (p <= f.in0 || p >= f.out1) return 0
